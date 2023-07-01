@@ -1,5 +1,5 @@
 import socket
-from data import ThermostatData
+from .data import ThermostatData
 
 class Trane:
 
