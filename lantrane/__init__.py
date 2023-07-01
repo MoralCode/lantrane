@@ -1,2 +1,2 @@
-from .trane import Trane
+from .lantrane import Trane
 from .data import ThermostatData
