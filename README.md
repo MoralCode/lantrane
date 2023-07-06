@@ -9,7 +9,7 @@ Your thermostat for communicating, variable speed heat pump systems might have a
 ```python
 from lantrane import Trane
 
-for data in Trane().listen(host=args.ip, port=args.port):
+for data in Trane(args.ip, args.port).listen():
 	print(data)
 
 ```
