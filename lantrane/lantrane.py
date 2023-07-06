@@ -3,15 +3,17 @@ from .data import ThermostatData
 
 class Trane:
 
-	def __init__(self, timeout=socket._GLOBAL_DEFAULT_TIMEOUT):
+	def __init__(self, host: str, port:int):#timeout=socket._GLOBAL_DEFAULT_TIMEOUT
+		self.host = host
+		self.port = port
+		# self.timeout = timeout
 
-		self.timeout = timeout
 
-	def listen(self, host=None, port=0, bufsize=128):
+	def listen(self, bufsize=128):
 		# set up TCP socket
 		sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-		sock.connect((host, port))
+		sock.connect((self.host, self.port))
 		# print(f"Connected to {self.ip}:{self.port}")
 		try:
 			while True:
