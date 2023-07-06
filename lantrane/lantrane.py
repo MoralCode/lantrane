@@ -8,6 +8,23 @@ class Trane:
 		self.port = port
 		# self.timeout = timeout
 
+	def validate(self):
+		"""Validates whether the given host and port can be connected to.
+
+		Returns:
+			bool: whether or not the given host and port could successfully connect
+		"""
+		sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+		try:
+			sock.connect((self.host, self.port))
+		except ConnectionRefusedError:
+			return False
+		finally:
+			sock.close()
+		
+		return True
+
+
 
 	def listen(self, bufsize=128):
 		# set up TCP socket
