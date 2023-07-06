@@ -40,5 +40,10 @@ class Trane:
 				# strip newline and trailing null
 				data = data[:-2]
 				yield ThermostatData.from_data(data)
+		except (TimeoutError, ConnectionAbortedError, ConnectionResetError) as e:
+			# sockets generally either time out, close, or reset.
+			# https://stackoverflow.com/a/15175067/
+			print("Connection Error")
+			print(e)
 		finally:
 			sock.close()
