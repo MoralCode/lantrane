@@ -1,8 +1,9 @@
 import socket
 import asyncio
 from .data import ThermostatData
+from .eventmanager import EventManager
 
-class Trane:
+class Trane(EventManager):
 
 	def __init__(self, host: str, port:int):#timeout=socket._GLOBAL_DEFAULT_TIMEOUT
 		self.host = host
@@ -25,6 +26,9 @@ class Trane:
 		
 		return True
 
+	def on_data(self, callback: Callable) -> Callable:
+		return self.on("incoming_data", callback)
+
 	async def listen(self, bufsize=128):
 
 		# Register the open socket to wait for data.
@@ -39,7 +43,9 @@ class Trane:
 					break
 				# strip newline and trailing null
 				data = data[:-2]
-				yield ThermostatData.from_data(data)
+				returnData = ThermostatData.from_data(data)
+				self.emit("incoming_data", returnData)
+				yield returnData
 		except (TimeoutError, ConnectionAbortedError, ConnectionResetError) as e:
 			# sockets generally either time out, close, or reset.
 			# https://stackoverflow.com/a/15175067/
