@@ -17,7 +17,22 @@ async def read_async():
 asyncio.run(read_async())
 ```
 
+you can also subscribe to data using a callback (i think)
 
+```python
+from lantrane import Trane
+import asyncio
+
+trane = Trane(args.ip, args.port)
+
+def read(data):
+	print(data)
+
+trane.on_data(read)
+	
+asyncio.run(trane.listen())
+
+```
 
 ## Distribution
 
