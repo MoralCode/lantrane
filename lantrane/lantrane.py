@@ -2,10 +2,12 @@ import socket
 import asyncio
 from .data import ThermostatData
 from .eventmanager import EventManager
+from typing import Callable
 
 class Trane(EventManager):
 
 	def __init__(self, host: str, port:int):#timeout=socket._GLOBAL_DEFAULT_TIMEOUT
+		super().__init__()
 		self.host = host
 		self.port = port
 		# self.timeout = timeout

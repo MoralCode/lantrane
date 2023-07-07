@@ -1,3 +1,5 @@
+from typing import Callable
+
 
 class EventManager:
 	"""inftastructure for managing events and callbacks
