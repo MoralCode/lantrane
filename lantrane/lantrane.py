@@ -1,4 +1,5 @@
 import socket
+import asyncio
 from .data import ThermostatData
 
 class Trane:
@@ -24,17 +25,16 @@ class Trane:
 		
 		return True
 
+	async def listen(self, bufsize=128):
 
+		# Register the open socket to wait for data.
+		reader, writer = await asyncio.open_connection(host=self.host, port=self.port, family=socket.AF_INET)
+		# sock=rsock,
 
-	def listen(self, bufsize=128):
-		# set up TCP socket
-		sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-		sock.connect((self.host, self.port))
 		# print(f"Connected to {self.ip}:{self.port}")
 		try:
 			while True:
-				data = sock.recv(bufsize)
+				data = await reader.read(bufsize)
 				if not data:
 					break
 				# strip newline and trailing null
@@ -46,4 +46,5 @@ class Trane:
 			print("Connection Error")
 			print(e)
 		finally:
-			sock.close()
+			writer.close()
+			await writer.wait_closed()
