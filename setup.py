@@ -9,7 +9,7 @@ setuptools.setup(
      install_requires=[],      								  # Dependencies
      python_requires='>=3',                                   # Minimum Python version
      name='lantrane',                                  # Package name
-     version="0.0.3",                                     # Version
+     version="0.0.4",                                     # Version
      author="Adrian Edwards",                                 # Author name
      author_email="adrian@adriancedwards.com",                           # Author mail
      description="Python package for interacting with Trane thermostats locally.",    # Short package description
