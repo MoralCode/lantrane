@@ -8,10 +8,13 @@ Your thermostat for communicating, variable speed heat pump systems might have a
 
 ```python
 from lantrane import Trane
+import asyncio
 
-for data in Trane(args.ip, args.port).listen():
+async def read_async():
+	async for data in Trane(args.ip, args.port).listen():
 	print(data)
 
+asyncio.run(read_async())
 ```
 
 
