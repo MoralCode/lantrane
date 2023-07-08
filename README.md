@@ -10,19 +10,6 @@ Your thermostat for communicating, variable speed heat pump systems might have a
 from lantrane import Trane
 import asyncio
 
-async def read_async():
-	async for data in Trane(args.ip, args.port).listen():
-	print(data)
-
-asyncio.run(read_async())
-```
-
-you can also subscribe to data using a callback (i think)
-
-```python
-from lantrane import Trane
-import asyncio
-
 trane = Trane(args.ip, args.port)
 
 def read(data):
