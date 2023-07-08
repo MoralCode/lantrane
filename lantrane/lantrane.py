@@ -45,9 +45,7 @@ class Trane(EventManager):
 					break
 				# strip newline and trailing null
 				data = data[:-2]
-				returnData = ThermostatData.from_data(data)
-				self.emit("incoming_data", returnData)
-				yield returnData
+				self.emit("incoming_data", ThermostatData.from_data(data))
 		except (TimeoutError, ConnectionAbortedError, ConnectionResetError) as e:
 			# sockets generally either time out, close, or reset.
 			# https://stackoverflow.com/a/15175067/
